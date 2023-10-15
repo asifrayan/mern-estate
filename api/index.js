@@ -25,6 +25,16 @@ app.get('/', (req, res) => {
   res.send('Hello from Mern Estate');
 });
 
+app.use((err, req, res, next) => {
+  const statusCode = err.statusCode || 500;
+  const message = err.message || 'internal server error';
+  res.status(statusCode).json({
+    success: 'false',
+    statusCode,
+    message,
+  });
+});
+
 // server
 const PORT = process.env.PORT || 3000;
 
