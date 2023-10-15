@@ -2,6 +2,7 @@ require('dotenv').config();
 const express = require('express');
 const mongoose = require('mongoose');
 const userRouter = require('./routes/user.routes');
+const authRouter = require('./routes/auth.routes');
 
 mongoose
   .connect(process.env.MONGO_URI)
@@ -14,8 +15,11 @@ mongoose
 
 const app = express();
 
+app.use(express.json());
+
 // routes
 app.use('/api/user', userRouter);
+app.use('/api/auth', authRouter);
 
 app.get('/', (req, res) => {
   res.send('Hello from Mern Estate');
